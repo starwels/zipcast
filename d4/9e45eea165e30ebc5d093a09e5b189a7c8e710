@@ -1,0 +1,22 @@
+app/controllers/forecasts_controller.rb
+  s_917dec6a109c07::t_72a7bb37290dc5 13,19-23,26
+  s_917dec6a109c07::t_080775c232cfb7 6
+app/services/forecast_lookup.rb
+  s_917dec6a109c07::t_72a7bb37290dc5 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "d49e45eea165e30ebc5d093a09e5b189a7c8e710",
+  "prompts": {},
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
