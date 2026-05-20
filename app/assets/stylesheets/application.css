@@ -288,6 +288,20 @@ body {
   filter: brightness(1.05);
 }
 
+.submit-button:disabled,
+.submit-button-loading {
+  cursor: wait;
+  filter: none;
+  opacity: 0.8;
+}
+
+.form-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   .page-shell {
     padding-top: 3rem;

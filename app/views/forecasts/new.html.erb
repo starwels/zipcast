@@ -17,7 +17,16 @@
       <div class="flash flash-notice"><%= flash[:notice] %></div>
     <% end %>
 
-    <%= form_with scope: :forecast, url: forecasts_path, method: :post, class: "forecast-form", data: { turbo: false } do |form| %>
+    <%= form_with scope: :forecast,
+        url: forecasts_path,
+        method: :post,
+        class: "forecast-form",
+        data: {
+          turbo: false,
+          controller: "forecast-form",
+          action: "submit->forecast-form#submit",
+          "forecast-form-loading-text-value": "Looking up forecast..."
+        } do |form| %>
       <div class="field">
         <%= form.label :address, "Address" %>
         <%= form.text_field :address,
@@ -27,7 +36,13 @@
             class: "text-input" %>
       </div>
 
-      <%= form.submit "Look up forecast", class: "submit-button" %>
+      <%= form.submit "Look up forecast",
+          class: "submit-button",
+          data: { forecast_form_target: "submitButton" } %>
+
+      <p class="form-status" data-forecast-form-target="status" hidden>
+        Looking up the address and forecast. This can take a few seconds.
+      </p>
     <% end %>
   </section>
 
