@@ -1,0 +1,33 @@
+<main class="page-shell">
+  <section class="hero">
+    <p class="eyebrow">ZipCast</p>
+    <h1>Weather lookup by address</h1>
+    <p class="hero-copy">
+      Enter a street address and get the current forecast for the resolved ZIP
+      code, with caching and an indicator when the result comes from cache.
+    </p>
+  </section>
+
+  <section class="lookup-panel">
+    <% if flash[:alert].present? %>
+      <div class="flash flash-alert"><%= flash[:alert] %></div>
+    <% end %>
+
+    <% if flash[:notice].present? %>
+      <div class="flash flash-notice"><%= flash[:notice] %></div>
+    <% end %>
+
+    <%= form_with scope: :forecast, url: forecasts_path, method: :post, class: "forecast-form" do |form| %>
+      <div class="field">
+        <%= form.label :address, "Address" %>
+        <%= form.text_field :address,
+            value: @address,
+            placeholder: "1600 Amphitheatre Parkway, Mountain View, CA",
+            autocomplete: "street-address",
+            class: "text-input" %>
+      </div>
+
+      <%= form.submit "Look up forecast", class: "submit-button" %>
+    <% end %>
+  </section>
+</main>
