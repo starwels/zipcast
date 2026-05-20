@@ -30,4 +30,30 @@
       <%= form.submit "Look up forecast", class: "submit-button" %>
     <% end %>
   </section>
+
+  <% if @location.present? %>
+    <section class="result-panel">
+      <div class="result-header">
+        <p class="eyebrow">Resolved Location</p>
+        <h2><%= @location.formatted_address %></h2>
+      </div>
+
+      <dl class="result-grid">
+        <div>
+          <dt>ZIP code</dt>
+          <dd><%= @location.zip_code %></dd>
+        </div>
+
+        <div>
+          <dt>Latitude</dt>
+          <dd><%= @location.latitude %></dd>
+        </div>
+
+        <div>
+          <dt>Longitude</dt>
+          <dd><%= @location.longitude %></dd>
+        </div>
+      </dl>
+    </section>
+  <% end %>
 </main>

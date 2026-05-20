@@ -69,6 +69,48 @@ body {
   backdrop-filter: blur(8px);
 }
 
+.result-panel {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(247, 241, 231, 0.9));
+  box-shadow: 0 20px 45px rgba(49, 33, 18, 0.08);
+}
+
+.result-header h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+}
+
+.result-grid div {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.result-grid dt {
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.result-grid dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 .flash {
   margin-bottom: 1rem;
   padding: 0.85rem 1rem;
@@ -139,6 +181,14 @@ body {
 
   .lookup-panel {
     padding: 1.1rem;
+  }
+
+  .result-panel {
+    padding: 1.1rem;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
   }
 
   .submit-button {
