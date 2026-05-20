@@ -1,0 +1,23 @@
+app/assets/stylesheets/application.css
+  s_917dec6a109c07::t_29962e739be87d 90-98,154-194,316-318
+app/views/forecasts/new.html.erb
+  s_917dec6a109c07::t_29962e739be87d 88-95,112-130
+app/services/weather/open_meteo_client.rb
+  s_917dec6a109c07::t_29962e739be87d 6-13,22-24,88-89,113,116-118,127-130,135-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "6159875bbe7b80ef3e185f606715dea5c945382b",
+  "prompts": {},
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
