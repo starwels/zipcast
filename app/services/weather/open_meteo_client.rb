@@ -29,6 +29,8 @@ module Weather
     class RequestError < Error; end
     class MissingDataError < Error; end
 
+    BASE_URL = "https://api.open-meteo.com".freeze
+
     WEATHER_CODES = {
       0 => "Clear sky",
       1 => "Mainly clear",
@@ -67,7 +69,6 @@ module Weather
     def initialize(latitude:, longitude:)
       @latitude = latitude
       @longitude = longitude
-      @base_url = ENV.fetch("OPEN_METEO_BASE_URL", "https://api.open-meteo.com")
     end
 
     def call
@@ -77,10 +78,10 @@ module Weather
 
     private
 
-    attr_reader :latitude, :longitude, :base_url
+    attr_reader :latitude, :longitude
 
     def perform_request
-      uri = URI("#{base_url}/v1/forecast")
+      uri = URI("#{BASE_URL}/v1/forecast")
       uri.query = URI.encode_www_form(
         latitude:,
         longitude:,
