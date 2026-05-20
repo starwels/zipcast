@@ -1,0 +1,19 @@
+README.md
+  s_917dec6a109c07::t_a2a3dafeb9fe30 1-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "dcd3fe44091d2cd44198d7fd42fd2695995365ca",
+  "prompts": {},
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
