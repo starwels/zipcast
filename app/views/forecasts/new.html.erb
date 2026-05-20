@@ -17,7 +17,7 @@
       <div class="flash flash-notice"><%= flash[:notice] %></div>
     <% end %>
 
-    <%= form_with scope: :forecast, url: forecasts_path, method: :post, class: "forecast-form" do |form| %>
+    <%= form_with scope: :forecast, url: forecasts_path, method: :post, class: "forecast-form", data: { turbo: false } do |form| %>
       <div class="field">
         <%= form.label :address, "Address" %>
         <%= form.text_field :address,
