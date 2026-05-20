@@ -26,11 +26,11 @@ module Geocoding
 
     def initialize(address:)
       @address = address.to_s.strip
-      @api_key = ENV["GOOGLE_GEOCODING_API_KEY"].to_s
+      @api_key = load_api_key
     end
 
     def call
-      raise MissingApiKeyError, "Missing GOOGLE_GEOCODING_API_KEY." if api_key.empty?
+      raise MissingApiKeyError, "Missing google geocoding API key in Rails credentials." if api_key.empty?
 
       response = perform_request
       parse_response(response)
@@ -39,6 +39,10 @@ module Geocoding
     private
 
     attr_reader :address, :api_key
+
+    def load_api_key
+      Rails.application.credentials.dig(:google, :geocoding_api_key).to_s
+    end
 
     def perform_request
       uri = URI(ENDPOINT)

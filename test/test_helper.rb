@@ -53,5 +53,23 @@ module ActiveSupport
     ensure
       singleton_class.define_method(method_name, previous_method)
     end
+
+    def with_google_geocoding_api_key(value)
+      fake_credentials = Struct.new(:key_value) do
+        def dig(*keys)
+          return key_value if keys == [ :google, :geocoding_api_key ]
+
+          nil
+        end
+
+        def google_geocoding_api_key
+          key_value
+        end
+      end.new(value)
+
+      stub_singleton_method(Rails.application, :credentials, fake_credentials) do
+        yield
+      end
+    end
   end
 end

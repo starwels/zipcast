@@ -24,7 +24,7 @@ class Geocoding::GoogleGeocoderTest < ActiveSupport::TestCase
 
     fake_http = FakeHttp.new(http_response(code: "200", body: JSON.generate(payload)))
 
-    with_env("GOOGLE_GEOCODING_API_KEY" => "test-key") do
+    with_google_geocoding_api_key("test-key") do
       stub_singleton_method(Net::HTTP, :new, fake_http) do
         result = Geocoding::GoogleGeocoder.call(address: "1600 Amphitheatre Parkway")
 
@@ -36,12 +36,12 @@ class Geocoding::GoogleGeocoderTest < ActiveSupport::TestCase
   end
 
   test "raises when api key is missing" do
-    with_env("GOOGLE_GEOCODING_API_KEY" => nil) do
+    with_google_geocoding_api_key(nil) do
       error = assert_raises(Geocoding::GoogleGeocoder::MissingApiKeyError) do
         Geocoding::GoogleGeocoder.call(address: "1600 Amphitheatre Parkway")
       end
 
-      assert_equal "Missing GOOGLE_GEOCODING_API_KEY.", error.message
+      assert_equal "Missing google geocoding API key in Rails credentials.", error.message
     end
   end
 
@@ -58,7 +58,7 @@ class Geocoding::GoogleGeocoderTest < ActiveSupport::TestCase
 
     fake_http = FakeHttp.new(http_response(code: "200", body: JSON.generate(payload)))
 
-    with_env("GOOGLE_GEOCODING_API_KEY" => "test-key") do
+    with_google_geocoding_api_key("test-key") do
       stub_singleton_method(Net::HTTP, :new, fake_http) do
         error = assert_raises(Geocoding::GoogleGeocoder::MissingZipCodeError) do
           Geocoding::GoogleGeocoder.call(address: "Mountain View")
