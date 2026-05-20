@@ -1,0 +1,25 @@
+app/controllers/forecasts_controller.rb
+  s_917dec6a109c07::t_3e701f6143e799 1-23
+app/assets/stylesheets/application.css
+  s_917dec6a109c07::t_3e701f6143e799 1-147
+config/routes.rb
+  s_917dec6a109c07::t_3e701f6143e799 12-14
+app/views/forecasts/new.html.erb
+  s_917dec6a109c07::t_3e701f6143e799 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "ebad3ece445b88b1a541b3fb2811f773714c1572",
+  "prompts": {},
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
