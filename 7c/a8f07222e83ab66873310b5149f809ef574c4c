@@ -1,0 +1,23 @@
+README.md
+  s_917dec6a109c07::t_38ad9dce96e317 39,42-43
+  s_917dec6a109c07::t_67b17f19a7c1c0 51-68
+docker-compose.yml
+  s_917dec6a109c07::t_67b17f19a7c1c0 1-33,35-39
+  s_917dec6a109c07::t_1725d10730ac0b 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "7ca8f07222e83ab66873310b5149f809ef574c4c",
+  "prompts": {},
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
