@@ -1,0 +1,36 @@
+app/views/forecasts/new.html.erb
+  s_917dec6a109c07::t_9cd65837c6ba87 22
+test/controllers/forecasts_controller_test.rb
+  s_917dec6a109c07::t_ad5cf75af9b162 14,22
+  s_917dec6a109c07::t_21f8d66ab482f6 4-5,11-12,18,20
+config/routes.rb
+  s_917dec6a109c07::t_2d2aa0a7fefd93 12,14
+app/controllers/forecasts_controller.rb
+  s_917dec6a109c07::t_ac1282509449d0 17,29
+  s_917dec6a109c07::t_3173123b29f5cd 2,13,18,20-25
+  s_917dec6a109c07::t_2f89f8fa2ba02d 8-11,26
+test/integration/forecast_flow_test.rb
+  s_917dec6a109c07::t_c5e461918cf383 15
+  s_917dec6a109c07::t_14c21911e51c85 13,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "97bf76a397f5bd53d3d11e7f8573a3480b9226ce",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": null
+    }
+  }
+}
