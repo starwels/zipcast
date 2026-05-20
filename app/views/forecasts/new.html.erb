@@ -19,7 +19,7 @@
 
     <%= form_with scope: :forecast,
         url: forecasts_path,
-        method: :post,
+        method: :get,
         class: "forecast-form",
         data: {
           turbo: false,
@@ -80,7 +80,7 @@
           <% if @cache_hit %>
             <span class="cache-badge">From cache</span>
           <% else %>
-            <span class="cache-badge cache-badge-live">Live lookup</span>
+            <span class="cache-badge">Live lookup</span>
           <% end %>
         </div>
         <h2><%= @current_forecast.condition_label %></h2>

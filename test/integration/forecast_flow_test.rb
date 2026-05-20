@@ -10,9 +10,9 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "shows an error when address is blank" do
-    post forecasts_path, params: { forecast: { address: "" } }
+    get forecasts_path, params: { forecast: { address: "" } }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select ".flash-alert", "Enter an address to look up the forecast."
   end
 
@@ -48,7 +48,7 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
     lookup = ForecastLookup::Result.new(location:, current_forecast: forecast, cached: true)
 
     stub_singleton_method(ForecastLookup, :call, lookup) do
-      post forecasts_path, params: { forecast: { address: "1600 Amphitheatre Parkway" } }
+      get forecasts_path, params: { forecast: { address: "1600 Amphitheatre Parkway" } }
 
       assert_response :success
       assert_select ".cache-badge", "From cache"
