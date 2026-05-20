@@ -60,7 +60,14 @@
   <% if @current_forecast.present? %>
     <section class="weather-panel">
       <div class="weather-panel-header">
-        <p class="eyebrow">Current Forecast</p>
+        <div class="panel-meta">
+          <p class="eyebrow">Current Forecast</p>
+          <% if @cache_hit %>
+            <span class="cache-badge">From cache</span>
+          <% else %>
+            <span class="cache-badge cache-badge-live">Live lookup</span>
+          <% end %>
+        </div>
         <h2><%= @current_forecast.condition_label %></h2>
       </div>
 
@@ -73,18 +80,23 @@
 
       <dl class="result-grid">
         <div>
+          <dt>ZIP source</dt>
+          <dd><%= @location.zip_code %></dd>
+        </div>
+
+        <div>
           <dt>Feels like</dt>
           <dd><%= @current_forecast.apparent_temperature %><%= @current_forecast.temperature_unit %></dd>
         </div>
 
         <div>
-          <dt>Wind speed</dt>
-          <dd><%= @current_forecast.wind_speed %> <%= @current_forecast.wind_speed_unit %></dd>
+          <dt>Observed at</dt>
+          <dd><%= @current_forecast.fetched_at %></dd>
         </div>
 
         <div>
-          <dt>Observed at</dt>
-          <dd><%= @current_forecast.fetched_at %></dd>
+          <dt>Wind speed</dt>
+          <dd><%= @current_forecast.wind_speed %> <%= @current_forecast.wind_speed_unit %></dd>
         </div>
       </dl>
     </section>

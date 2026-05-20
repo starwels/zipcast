@@ -20,7 +20,7 @@ class ForecastsController < ApplicationController
       @location = lookup.location
       @current_forecast = lookup.current_forecast
       @cache_hit = lookup.cached
-      flash.now[:notice] = "Forecast loaded successfully."
+      flash.now[:notice] = @cache_hit ? "Forecast loaded from cache." : "Forecast loaded successfully."
       render :new, status: :ok
     end
   rescue ForecastLookup::Error, Geocoding::GoogleGeocoder::Error => error
