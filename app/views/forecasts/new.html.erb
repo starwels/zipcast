@@ -56,4 +56,37 @@
       </dl>
     </section>
   <% end %>
+
+  <% if @current_forecast.present? %>
+    <section class="weather-panel">
+      <div class="weather-panel-header">
+        <p class="eyebrow">Current Forecast</p>
+        <h2><%= @current_forecast.condition_label %></h2>
+      </div>
+
+      <div class="temperature-strip">
+        <div class="temperature-pill">
+          <span class="temperature-value"><%= @current_forecast.temperature %></span>
+          <span class="temperature-unit"><%= @current_forecast.temperature_unit %></span>
+        </div>
+      </div>
+
+      <dl class="result-grid">
+        <div>
+          <dt>Feels like</dt>
+          <dd><%= @current_forecast.apparent_temperature %><%= @current_forecast.temperature_unit %></dd>
+        </div>
+
+        <div>
+          <dt>Wind speed</dt>
+          <dd><%= @current_forecast.wind_speed %> <%= @current_forecast.wind_speed_unit %></dd>
+        </div>
+
+        <div>
+          <dt>Observed at</dt>
+          <dd><%= @current_forecast.fetched_at %></dd>
+        </div>
+      </dl>
+    </section>
+  <% end %>
 </main>
