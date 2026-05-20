@@ -1,0 +1,24 @@
+app/services/weather/open_meteo_client.rb
+  s_917dec6a109c07::t_a39c21167f0bba 32-33,81,84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "bcc22bb389562ce8e8275d47e155d544f0626c6d",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
