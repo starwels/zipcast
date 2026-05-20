@@ -1,0 +1,29 @@
+app/services/geocoding/google_geocoder.rb
+  s_917dec6a109c07::t_046fd1be6d9386 29,33,43,45
+  s_917dec6a109c07::t_6d7a75cdbc7a46 44
+test/test_helper.rb
+  s_917dec6a109c07::t_046fd1be6d9386 56-73
+test/services/geocoding/google_geocoder_test.rb
+  s_917dec6a109c07::t_046fd1be6d9386 27,39,44,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "a38e337c3c0c29905051744c3ae9a312ac88773f",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
