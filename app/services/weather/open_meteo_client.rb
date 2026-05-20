@@ -3,6 +3,14 @@ require "net/http"
 
 module Weather
   class OpenMeteoClient
+    DailyForecast = Struct.new(
+      :date,
+      :high,
+      :low,
+      :condition_label,
+      keyword_init: true
+    )
+
     Result = Struct.new(
       :temperature,
       :temperature_unit,
@@ -11,6 +19,9 @@ module Weather
       :wind_speed_unit,
       :condition_label,
       :fetched_at,
+      :daily_high,
+      :daily_low,
+      :daily_periods,
       keyword_init: true
     )
 
@@ -74,6 +85,8 @@ module Weather
         latitude:,
         longitude:,
         current: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m",
+        daily: "weather_code,temperature_2m_max,temperature_2m_min",
+        forecast_days: 5,
         timezone: "auto"
       )
 
@@ -97,8 +110,12 @@ module Weather
       payload = JSON.parse(response.body)
       current = payload["current"]
       units = payload["current_units"]
+      daily = payload["daily"]
 
       raise MissingDataError, "Weather provider did not return current conditions." if current.blank? || units.blank?
+      raise MissingDataError, "Weather provider did not return daily forecast data." if daily.blank?
+
+      daily_periods = build_daily_periods(daily)
 
       Result.new(
         temperature: current.fetch("temperature_2m"),
@@ -107,10 +124,29 @@ module Weather
         wind_speed: current.fetch("wind_speed_10m"),
         wind_speed_unit: units.fetch("wind_speed_10m"),
         condition_label: WEATHER_CODES.fetch(current.fetch("weather_code"), "Unknown"),
-        fetched_at: current.fetch("time")
+        fetched_at: current.fetch("time"),
+        daily_high: daily_periods.first&.high,
+        daily_low: daily_periods.first&.low,
+        daily_periods:
       )
     rescue JSON::ParserError
       raise RequestError, "Weather provider returned an invalid response."
+    end
+
+    def build_daily_periods(daily)
+      dates = daily.fetch("time")
+      highs = daily.fetch("temperature_2m_max")
+      lows = daily.fetch("temperature_2m_min")
+      codes = daily.fetch("weather_code")
+
+      dates.each_index.map do |index|
+        DailyForecast.new(
+          date: dates[index],
+          high: highs[index],
+          low: lows[index],
+          condition_label: WEATHER_CODES.fetch(codes[index], "Unknown")
+        )
+      end
     end
   end
 end

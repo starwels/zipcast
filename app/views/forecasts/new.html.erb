@@ -85,6 +85,15 @@
         </div>
 
         <div>
+          <dt>High / low</dt>
+          <dd>
+            <%= @current_forecast.daily_high %><%= @current_forecast.temperature_unit %>
+            /
+            <%= @current_forecast.daily_low %><%= @current_forecast.temperature_unit %>
+          </dd>
+        </div>
+
+        <div>
           <dt>Feels like</dt>
           <dd><%= @current_forecast.apparent_temperature %><%= @current_forecast.temperature_unit %></dd>
         </div>
@@ -99,6 +108,26 @@
           <dd><%= @current_forecast.wind_speed %> <%= @current_forecast.wind_speed_unit %></dd>
         </div>
       </dl>
+    </section>
+
+    <section class="extended-panel">
+      <div class="result-header">
+        <p class="eyebrow">Extended Forecast</p>
+        <h2>Next five days</h2>
+      </div>
+
+      <div class="forecast-list">
+        <% @current_forecast.daily_periods.each do |period| %>
+          <article class="forecast-day">
+            <p class="forecast-day-date"><%= period.date %></p>
+            <p class="forecast-day-condition"><%= period.condition_label %></p>
+            <p class="forecast-day-temps">
+              <strong><%= period.high %><%= @current_forecast.temperature_unit %></strong>
+              <span><%= period.low %><%= @current_forecast.temperature_unit %></span>
+            </p>
+          </article>
+        <% end %>
+      </div>
     </section>
   <% end %>
 </main>

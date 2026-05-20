@@ -87,6 +87,15 @@ body {
   box-shadow: 0 20px 45px rgba(31, 53, 66, 0.22);
 }
 
+.extended-panel {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  background: rgba(255, 253, 248, 0.92);
+  box-shadow: 0 20px 45px rgba(49, 33, 18, 0.08);
+}
+
 .weather-panel-header h2 {
   margin: 0;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -140,6 +149,47 @@ body {
 .temperature-unit {
   font-size: 1rem;
   font-weight: 700;
+}
+
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.forecast-day {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: var(--surface-strong);
+}
+
+.forecast-day-date,
+.forecast-day-condition,
+.forecast-day-temps {
+  margin: 0;
+}
+
+.forecast-day-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.forecast-day-condition {
+  margin-top: 0.55rem;
+  font-weight: 700;
+}
+
+.forecast-day-temps {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.forecast-day-temps span {
+  color: var(--muted);
 }
 
 .result-header h2 {
@@ -262,5 +312,9 @@ body {
 
   .submit-button {
     width: 100%;
+  }
+
+  .forecast-list {
+    grid-template-columns: 1fr;
   }
 }
