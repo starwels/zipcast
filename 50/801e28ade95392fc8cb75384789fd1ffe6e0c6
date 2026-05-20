@@ -1,0 +1,29 @@
+app/views/forecasts/new.html.erb
+  s_917dec6a109c07::t_4d1dea4c70d22d 20-29,39-45
+app/javascript/controllers/forecast_form_controller.js
+  s_917dec6a109c07::t_4d1dea4c70d22d 1-16,18-19
+  s_917dec6a109c07::t_0fa2532af07221 17
+app/assets/stylesheets/application.css
+  s_917dec6a109c07::t_4d1dea4c70d22d 291-304
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "50801e28ade95392fc8cb75384789fd1ffe6e0c6",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_917dec6a109c07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e463d-5df3-7b33-86ee-6466e6b8ca4f",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
