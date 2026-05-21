@@ -1,0 +1,28 @@
+README.md
+  s_356267c41ca53a::t_8de864ed59263f 52-61
+app/services/weather/open_meteo_client.rb
+  h_b4af60cede5fe2 32
+Gemfile
+  s_356267c41ca53a::t_c7c1fe19c4281e 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "c48a592814fb47606a114d556c84fd89ea72c21f",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_356267c41ca53a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4b75-32bf-7732-a808-ef7e41ae879a",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
