@@ -24,9 +24,9 @@ class Weather::OpenMeteoClientTest < ActiveSupport::TestCase
       },
       daily: {
         time: %w[2026-05-20 2026-05-21],
-        temperature_2m_max: [22.5, 24.0],
-        temperature_2m_min: [14.0, 15.2],
-        weather_code: [1, 61]
+        temperature_2m_max: [ 22.5, 24.0 ],
+        temperature_2m_min: [ 14.0, 15.2 ],
+        weather_code: [ 1, 61 ]
       }
     }
 
