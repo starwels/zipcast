@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "ed93f34181682f2390db06b9bdf7a06bf381cee0",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
