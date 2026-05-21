@@ -49,7 +49,16 @@ google:
 
 ## Setup
 
-After placing `config/master.key`, run:
+After placing `config/master.key`, create a local `.env` file:
+
+```bash
+cat <<'EOF' > .env
+# Optional: override the default Open-Meteo API base URL.
+# OPEN_METEO_BASE_URL=https://api.open-meteo.com
+EOF
+```
+
+Then run:
 
 ```bash
 bin/setup

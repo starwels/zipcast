@@ -29,7 +29,7 @@ module Weather
     class RequestError < Error; end
     class MissingDataError < Error; end
 
-    BASE_URL = "https://api.open-meteo.com".freeze
+    BASE_URL = ENV["OPEN_METEO_BASE_URL"].presence || "https://api.open-meteo.com"
 
     WEATHER_CODES = {
       0 => "Clear sky",
