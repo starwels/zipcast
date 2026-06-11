@@ -7,6 +7,7 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", "Weather lookup by address"
     assert_select "form"
+    assert_select "form[data-turbo='false']", false
   end
 
   test "shows cache indicator when forecast is served from cache" do
