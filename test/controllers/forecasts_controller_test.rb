@@ -1,11 +1,13 @@
 require "test_helper"
 
 class ForecastsControllerTest < ActionDispatch::IntegrationTest
-  test "index renders successfully" do
-    get forecasts_path
+  test "index renders form without running lookup before submission" do
+    stub_singleton_method(ForecastLookup, :call, ->(**_args) { raise "Lookup should not run" }) do
+      get forecasts_path
 
-    assert_response :success
-    assert_select "h1", "Weather lookup by address"
+      assert_response :success
+      assert_select "h1", "Weather lookup by address"
+    end
   end
 
   test "index returns unprocessable entity when address is blank" do

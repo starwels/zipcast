@@ -9,13 +9,6 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
     assert_select "form"
   end
 
-  test "shows an error when address is blank" do
-    get forecasts_path, params: { forecast: { address: "" } }
-
-    assert_response :unprocessable_content
-    assert_select ".flash-alert", "Enter an address to look up the forecast."
-  end
-
   test "shows cache indicator when forecast is served from cache" do
     location = Geocoding::GoogleGeocoder::Result.new(
       address: "1600 Amphitheatre Parkway",

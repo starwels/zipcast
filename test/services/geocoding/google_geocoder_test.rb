@@ -45,6 +45,20 @@ class Geocoding::GoogleGeocoderTest < ActiveSupport::TestCase
     end
   end
 
+  test "raises when no location result is returned" do
+    fake_http = FakeHttp.new(http_response(code: "200", body: JSON.generate({ results: [] })))
+
+    with_google_geocoding_api_key("test-key") do
+      stub_singleton_method(Net::HTTP, :new, fake_http) do
+        error = assert_raises(Geocoding::GoogleGeocoder::NoResultsError) do
+          Geocoding::GoogleGeocoder.call(address: "Unknown")
+        end
+
+        assert_equal "No location found for that address.", error.message
+      end
+    end
+  end
+
   test "raises when no zip code is returned" do
     payload = {
       results: [
@@ -65,6 +79,34 @@ class Geocoding::GoogleGeocoderTest < ActiveSupport::TestCase
         end
 
         assert_equal "That address did not resolve to a ZIP code.", error.message
+      end
+    end
+  end
+
+  test "raises when provider returns invalid json" do
+    fake_http = FakeHttp.new(http_response(code: "200", body: "{"))
+
+    with_google_geocoding_api_key("test-key") do
+      stub_singleton_method(Net::HTTP, :new, fake_http) do
+        error = assert_raises(Geocoding::GoogleGeocoder::RequestError) do
+          Geocoding::GoogleGeocoder.call(address: "1600 Amphitheatre Parkway")
+        end
+
+        assert_equal "Google Geocoding returned an invalid response.", error.message
+      end
+    end
+  end
+
+  test "raises when provider request fails" do
+    fake_http = FakeHttp.new(http_response(code: "500", body: "{}"))
+
+    with_google_geocoding_api_key("test-key") do
+      stub_singleton_method(Net::HTTP, :new, fake_http) do
+        error = assert_raises(Geocoding::GoogleGeocoder::RequestError) do
+          Geocoding::GoogleGeocoder.call(address: "1600 Amphitheatre Parkway")
+        end
+
+        assert_equal "Google Geocoding request failed with 500.", error.message
       end
     end
   end
