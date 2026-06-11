@@ -1,6 +1,19 @@
 require "test_helper"
 
 class ForecastLookupTest < ActiveSupport::TestCase
+  FakeGeocoder = Struct.new(:response) do
+    def call(**_args)
+      response
+    end
+  end
+
+  FakeWeatherClient = Struct.new(:response, :calls) do
+    def call(**_args)
+      self.calls += 1
+      response
+    end
+  end
+
   setup do
     @memory_cache = ActiveSupport::Cache.lookup_store(:memory_store)
     @memory_cache.clear
@@ -28,35 +41,37 @@ class ForecastLookupTest < ActiveSupport::TestCase
       daily_periods: []
     )
 
-    weather_calls = 0
+    geocoder = FakeGeocoder.new(location)
+    weather_client = FakeWeatherClient.new(forecast, 0)
 
-    stub_singleton_method(Rails, :cache, @memory_cache) do
-      stub_singleton_method(Geocoding::GoogleGeocoder, :call, location) do
-        stub_singleton_method(Weather::OpenMeteoClient, :call, ->(**_args) {
-          weather_calls += 1
-          forecast
-        }) do
-          first_lookup = ForecastLookup.call(address: "1600 Amphitheatre Parkway")
-          second_lookup = ForecastLookup.call(address: "1600 Amphitheatre Parkway")
+    first_lookup = ForecastLookup.call(
+      address: "1600 Amphitheatre Parkway",
+      geocoder:,
+      weather_client:,
+      cache: @memory_cache
+    )
+    second_lookup = ForecastLookup.call(
+      address: "1600 Amphitheatre Parkway",
+      geocoder:,
+      weather_client:,
+      cache: @memory_cache
+    )
 
-          assert_equal false, first_lookup.cached
-          assert_equal true, second_lookup.cached
-          assert_equal 1, weather_calls
-        end
-      end
-    end
+    assert_equal false, first_lookup.cached
+    assert_equal true, second_lookup.cached
+    assert_equal 1, weather_client.calls
   end
 
   test "wraps geocoding errors" do
-    stub_singleton_method(Geocoding::GoogleGeocoder, :call, ->(**_args) {
+    geocoder = ->(**_args) {
       raise Geocoding::GoogleGeocoder::NoResultsError, "No location found for that address."
-    }) do
-      error = assert_raises(ForecastLookup::Error) do
-        ForecastLookup.call(address: "Unknown")
-      end
+    }
 
-      assert_equal "No location found for that address.", error.message
+    error = assert_raises(ForecastLookup::Error) do
+      ForecastLookup.call(address: "Unknown", geocoder:, cache: @memory_cache)
     end
+
+    assert_equal "No location found for that address.", error.message
   end
 
   test "wraps weather provider errors" do
@@ -68,16 +83,15 @@ class ForecastLookupTest < ActiveSupport::TestCase
       longitude: -122.084
     )
 
-    stub_singleton_method(Geocoding::GoogleGeocoder, :call, location) do
-      stub_singleton_method(Weather::OpenMeteoClient, :call, ->(**_args) {
-        raise Weather::OpenMeteoClient::RequestError, "Weather request failed with 500."
-      }) do
-        error = assert_raises(ForecastLookup::Error) do
-          ForecastLookup.call(address: "1600 Amphitheatre Parkway")
-        end
+    geocoder = FakeGeocoder.new(location)
+    weather_client = ->(**_args) {
+      raise Weather::OpenMeteoClient::RequestError, "Weather request failed with 500."
+    }
 
-        assert_equal "Weather request failed with 500.", error.message
-      end
+    error = assert_raises(ForecastLookup::Error) do
+      ForecastLookup.call(address: "1600 Amphitheatre Parkway", geocoder:, weather_client:, cache: @memory_cache)
     end
+
+    assert_equal "Weather request failed with 500.", error.message
   end
 end
