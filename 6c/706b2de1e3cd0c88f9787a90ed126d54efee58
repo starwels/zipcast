@@ -1,0 +1,26 @@
+test/integration/forecast_flow_test.rb
+  s_ac3735265f3c57::t_4a345a1af366f4 10
+app/javascript/controllers/forecast_form_controller.js
+  s_ac3735265f3c57::t_3b76df7b0fda1c 10-20,33-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "6c706b2de1e3cd0c88f9787a90ed126d54efee58",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
