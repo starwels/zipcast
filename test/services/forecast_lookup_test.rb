@@ -7,7 +7,7 @@ class ForecastLookupTest < ActiveSupport::TestCase
   end
 
   test "caches forecast responses by zip code" do
-    location = Geocoding::GoogleGeocoder::Result.new(
+    location = Geocoding::Location.new(
       address: "1600 Amphitheatre Parkway",
       formatted_address: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
       zip_code: "94043",
@@ -15,7 +15,7 @@ class ForecastLookupTest < ActiveSupport::TestCase
       longitude: -122.084
     )
 
-    forecast = Weather::OpenMeteoClient::Result.new(
+    forecast = Weather::Forecast.new(
       temperature: 20.1,
       temperature_unit: "C",
       apparent_temperature: 19.4,
@@ -60,7 +60,7 @@ class ForecastLookupTest < ActiveSupport::TestCase
   end
 
   test "wraps weather provider errors" do
-    location = Geocoding::GoogleGeocoder::Result.new(
+    location = Geocoding::Location.new(
       address: "1600 Amphitheatre Parkway",
       formatted_address: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
       zip_code: "94043",

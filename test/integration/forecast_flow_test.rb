@@ -10,7 +10,7 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "shows cache indicator when forecast is served from cache" do
-    location = Geocoding::GoogleGeocoder::Result.new(
+    location = Geocoding::Location.new(
       address: "1600 Amphitheatre Parkway",
       formatted_address: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
       zip_code: "94043",
@@ -18,7 +18,7 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
       longitude: -122.084
     )
 
-    forecast = Weather::OpenMeteoClient::Result.new(
+    forecast = Weather::Forecast.new(
       temperature: 20.1,
       temperature_unit: "C",
       apparent_temperature: 19.4,
@@ -29,7 +29,7 @@ class ForecastFlowTest < ActionDispatch::IntegrationTest
       daily_high: 22.5,
       daily_low: 14.0,
       daily_periods: [
-        Weather::OpenMeteoClient::DailyForecast.new(
+        Weather::DailyForecast.new(
           date: "2026-05-20",
           high: 22.5,
           low: 14.0,

@@ -3,28 +3,6 @@ require "net/http"
 
 module Weather
   class OpenMeteoClient
-    DailyForecast = Struct.new(
-      :date,
-      :high,
-      :low,
-      :condition_label,
-      keyword_init: true
-    )
-
-    Result = Struct.new(
-      :temperature,
-      :temperature_unit,
-      :apparent_temperature,
-      :wind_speed,
-      :wind_speed_unit,
-      :condition_label,
-      :fetched_at,
-      :daily_high,
-      :daily_low,
-      :daily_periods,
-      keyword_init: true
-    )
-
     class Error < StandardError; end
     class RequestError < Error; end
     class MissingDataError < Error; end
@@ -145,7 +123,7 @@ module Weather
 
       daily_periods = build_daily_periods(daily)
 
-      Result.new(
+      Forecast.new(
         temperature: current.fetch(TEMPERATURE_KEY),
         temperature_unit: units.fetch(TEMPERATURE_KEY),
         apparent_temperature: current.fetch(APPARENT_TEMPERATURE_KEY),

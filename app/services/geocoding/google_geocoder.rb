@@ -3,15 +3,6 @@ require "net/http"
 
 module Geocoding
   class GoogleGeocoder
-    Result = Struct.new(
-      :address,
-      :formatted_address,
-      :zip_code,
-      :latitude,
-      :longitude,
-      keyword_init: true
-    )
-
     class Error < StandardError; end
     class MissingApiKeyError < Error; end
     class NoResultsError < Error; end
@@ -92,7 +83,7 @@ module Geocoding
 
       location = result.fetch(GEOMETRY_KEY).fetch(LOCATION_KEY)
 
-      Result.new(
+      Location.new(
         address:,
         formatted_address: result.fetch(FORMATTED_ADDRESS_KEY),
         zip_code:,
