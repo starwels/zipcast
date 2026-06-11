@@ -1,11 +1,8 @@
 <main class="page-shell">
   <section class="hero">
-    <p class="eyebrow">ZipCast</p>
-    <h1>Weather lookup by address</h1>
-    <p class="hero-copy">
-      Enter a street address and get the current forecast for the resolved ZIP
-      code, with caching and an indicator when the result comes from cache.
-    </p>
+    <p class="eyebrow"><%= t("forecasts.index.app_name") %></p>
+    <h1><%= t("forecasts.index.title") %></h1>
+    <p class="hero-copy"><%= t("forecasts.index.description") %></p>
   </section>
 
   <section class="lookup-panel">
@@ -25,23 +22,23 @@
           turbo: false,
           controller: "forecast-form",
           action: "submit->forecast-form#submit",
-          "forecast-form-loading-text-value": "Looking up forecast..."
+          "forecast-form-loading-text-value": t("forecasts.index.form.loading_button")
         } do |form| %>
       <div class="field">
-        <%= form.label :address, "Address" %>
+        <%= form.label :address, t("forecasts.index.form.address_label") %>
         <%= form.text_field :address,
             value: @address,
-            placeholder: "1600 Amphitheatre Parkway, Mountain View, CA",
+            placeholder: t("forecasts.index.form.address_placeholder"),
             autocomplete: "street-address",
             class: "text-input" %>
       </div>
 
-      <%= form.submit "Look up forecast",
+      <%= form.submit t("forecasts.index.form.submit"),
           class: "submit-button",
           data: { forecast_form_target: "submitButton" } %>
 
       <p class="form-status" data-forecast-form-target="status" hidden>
-        Looking up the address and forecast. This can take a few seconds.
+        <%= t("forecasts.index.form.loading_status") %>
       </p>
     <% end %>
   </section>
@@ -49,23 +46,23 @@
   <% if @location.present? %>
     <section class="result-panel">
       <div class="result-header">
-        <p class="eyebrow">Resolved Location</p>
+        <p class="eyebrow"><%= t("forecasts.index.location.eyebrow") %></p>
         <h2><%= @location.formatted_address %></h2>
       </div>
 
       <dl class="result-grid">
         <div>
-          <dt>ZIP code</dt>
+          <dt><%= t("forecasts.index.location.zip_code") %></dt>
           <dd><%= @location.zip_code %></dd>
         </div>
 
         <div>
-          <dt>Latitude</dt>
+          <dt><%= t("forecasts.index.location.latitude") %></dt>
           <dd><%= @location.latitude %></dd>
         </div>
 
         <div>
-          <dt>Longitude</dt>
+          <dt><%= t("forecasts.index.location.longitude") %></dt>
           <dd><%= @location.longitude %></dd>
         </div>
       </dl>
@@ -76,11 +73,11 @@
     <section class="weather-panel">
       <div class="weather-panel-header">
         <div class="panel-meta">
-          <p class="eyebrow">Current Forecast</p>
+          <p class="eyebrow"><%= t("forecasts.index.forecast.eyebrow") %></p>
           <% if @cache_hit %>
-            <span class="cache-badge">From cache</span>
+            <span class="cache-badge"><%= t("forecasts.index.forecast.cache_hit") %></span>
           <% else %>
-            <span class="cache-badge">Live lookup</span>
+            <span class="cache-badge"><%= t("forecasts.index.forecast.live_lookup") %></span>
           <% end %>
         </div>
         <h2><%= @current_forecast.condition_label %></h2>
@@ -95,12 +92,12 @@
 
       <dl class="result-grid">
         <div>
-          <dt>ZIP source</dt>
+          <dt><%= t("forecasts.index.forecast.zip_source") %></dt>
           <dd><%= @location.zip_code %></dd>
         </div>
 
         <div>
-          <dt>High / low</dt>
+          <dt><%= t("forecasts.index.forecast.high_low") %></dt>
           <dd>
             <%= @current_forecast.daily_high %><%= @current_forecast.temperature_unit %>
             /
@@ -109,17 +106,17 @@
         </div>
 
         <div>
-          <dt>Feels like</dt>
+          <dt><%= t("forecasts.index.forecast.feels_like") %></dt>
           <dd><%= @current_forecast.apparent_temperature %><%= @current_forecast.temperature_unit %></dd>
         </div>
 
         <div>
-          <dt>Observed at</dt>
+          <dt><%= t("forecasts.index.forecast.observed_at") %></dt>
           <dd><%= @current_forecast.fetched_at %></dd>
         </div>
 
         <div>
-          <dt>Wind speed</dt>
+          <dt><%= t("forecasts.index.forecast.wind_speed") %></dt>
           <dd><%= @current_forecast.wind_speed %> <%= @current_forecast.wind_speed_unit %></dd>
         </div>
       </dl>
@@ -127,8 +124,8 @@
 
     <section class="extended-panel">
       <div class="result-header">
-        <p class="eyebrow">Extended Forecast</p>
-        <h2>Next five days</h2>
+        <p class="eyebrow"><%= t("forecasts.index.extended.eyebrow") %></p>
+        <h2><%= t("forecasts.index.extended.title") %></h2>
       </div>
 
       <div class="forecast-list">

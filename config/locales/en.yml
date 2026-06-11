@@ -28,4 +28,34 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  forecasts:
+    index:
+      app_name: "ZipCast"
+      blank_address: "Enter an address to look up the forecast."
+      cache_hit: "Forecast loaded from cache."
+      description: "Enter a street address and get the current forecast for the resolved ZIP code, with caching and an indicator when the result comes from cache."
+      extended:
+        eyebrow: "Extended Forecast"
+        title: "Next five days"
+      forecast:
+        cache_hit: "From cache"
+        eyebrow: "Current Forecast"
+        feels_like: "Feels like"
+        high_low: "High / low"
+        live_lookup: "Live lookup"
+        observed_at: "Observed at"
+        wind_speed: "Wind speed"
+        zip_source: "ZIP source"
+      form:
+        address_label: "Address"
+        address_placeholder: "1600 Amphitheatre Parkway, Mountain View, CA"
+        loading_button: "Looking up forecast..."
+        loading_status: "Looking up the address and forecast. This can take a few seconds."
+        submit: "Look up forecast"
+      location:
+        eyebrow: "Resolved Location"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        zip_code: "ZIP code"
+      lookup_success: "Forecast loaded successfully."
+      title: "Weather lookup by address"

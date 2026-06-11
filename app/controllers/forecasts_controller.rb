@@ -8,7 +8,7 @@ class ForecastsController < ApplicationController
     @address = params.dig(:forecast, :address).to_s.strip
 
     if @address.blank?
-      flash.now[:alert] = "Enter an address to look up the forecast."
+      flash.now[:alert] = t(".blank_address")
       render :new, status: :unprocessable_content
       return
     end
@@ -17,7 +17,7 @@ class ForecastsController < ApplicationController
     @location = lookup.location
     @current_forecast = lookup.current_forecast
     @cache_hit = lookup.cached
-    flash.now[:notice] = @cache_hit ? "Forecast loaded from cache." : "Forecast loaded successfully."
+    flash.now[:notice] = @cache_hit ? t(".cache_hit") : t(".lookup_success")
     render :new
   rescue ForecastLookup::Error, Geocoding::GoogleGeocoder::Error => error
     flash.now[:alert] = error.message
