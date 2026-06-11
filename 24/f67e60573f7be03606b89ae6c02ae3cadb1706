@@ -1,0 +1,24 @@
+.github/workflows/ci.yml
+  s_ac3735265f3c57::t_7d1c3a00bb4e7e 105,144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "24f67e60573f7be03606b89ae6c02ae3cadb1706",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
