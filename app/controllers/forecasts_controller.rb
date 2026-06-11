@@ -1,10 +1,5 @@
 class ForecastsController < ApplicationController
   def index
-    @address = ""
-    @location = nil
-    @current_forecast = nil
-    @cache_hit = false
-
     unless params.key?(:forecast)
       render :new
       return
