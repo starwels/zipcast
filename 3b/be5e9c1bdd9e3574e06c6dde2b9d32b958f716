@@ -1,0 +1,31 @@
+app/services/forecast_lookup.rb
+  s_ac3735265f3c57::t_10d7678a477f0f 6-8,31,40
+app/services/geocoding/google_geocoder.rb
+  s_ac3735265f3c57::t_1a466c348af10b 22-38,73-74,86,88,90-91,93,97,99-100,103,108,111
+  s_ac3735265f3c57::t_ef97969aa438b5 50
+app/services/weather/open_meteo_client.rb
+  s_ac3735265f3c57::t_93d49f5fc6b0ec 32-59,111,115-118,125-127,139-141,143-144,149-155,161,165-168,175
+app/javascript/controllers/forecast_form_controller.js
+  s_ac3735265f3c57::t_88ce6094fb59a6 3-5,15-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "3bbe5e9c1bdd9e3574e06c6dde2b9d32b958f716",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
