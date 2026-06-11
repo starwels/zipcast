@@ -1,0 +1,39 @@
+app/models/geocoding/location.rb
+  s_ac3735265f3c57::t_47ddfb066a9a59 1,13
+  s_ac3735265f3c57::t_eadc9fd8a03668 2-12
+app/models/weather/forecast.rb
+  s_ac3735265f3c57::t_47ddfb066a9a59 1,38
+  s_ac3735265f3c57::t_eadc9fd8a03668 2-37
+app/services/geocoding/google_geocoder.rb
+  s_ac3735265f3c57::t_47ddfb066a9a59 86
+app/models/weather/daily_forecast.rb
+  s_ac3735265f3c57::t_47ddfb066a9a59 1,12
+  s_ac3735265f3c57::t_eadc9fd8a03668 2-11
+app/services/weather/open_meteo_client.rb
+  s_ac3735265f3c57::t_47ddfb066a9a59 126
+test/services/forecast_lookup_test.rb
+  s_ac3735265f3c57::t_8d13302a2a34df 10,18,63
+test/integration/forecast_flow_test.rb
+  s_ac3735265f3c57::t_8d13302a2a34df 13,21,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "47df09e3b51c79f32de1cebe885ba2f7941abcab",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
