@@ -29,7 +29,34 @@ module Weather
     class RequestError < Error; end
     class MissingDataError < Error; end
 
-    BASE_URL = ENV["OPEN_METEO_BASE_URL"].presence || "https://api.open-meteo.com"
+    BASE_URL_ENV_KEY = "OPEN_METEO_BASE_URL".freeze
+    DEFAULT_BASE_URL = "https://api.open-meteo.com".freeze
+    FORECAST_PATH = "/v1/forecast".freeze
+    BASE_URL = ENV[BASE_URL_ENV_KEY].presence || DEFAULT_BASE_URL
+
+    HTTPS_SCHEME = "https".freeze
+    REQUEST_TIMEOUT_SECONDS = 5
+
+    CURRENT_FIELDS = "temperature_2m,apparent_temperature,weather_code,wind_speed_10m".freeze
+    DAILY_FIELDS = "weather_code,temperature_2m_max,temperature_2m_min".freeze
+    FORECAST_DAYS = 5
+    TIMEZONE = "auto".freeze
+
+    APPARENT_TEMPERATURE_KEY = "apparent_temperature".freeze
+    CURRENT_KEY = "current".freeze
+    CURRENT_UNITS_KEY = "current_units".freeze
+    DAILY_KEY = "daily".freeze
+    TEMPERATURE_KEY = "temperature_2m".freeze
+    TEMPERATURE_MAX_KEY = "temperature_2m_max".freeze
+    TEMPERATURE_MIN_KEY = "temperature_2m_min".freeze
+    TIME_KEY = "time".freeze
+    WEATHER_CODE_KEY = "weather_code".freeze
+    WIND_SPEED_KEY = "wind_speed_10m".freeze
+
+    CURRENT_DATA_MISSING_MESSAGE = "Weather provider did not return current conditions.".freeze
+    DAILY_DATA_MISSING_MESSAGE = "Weather provider did not return daily forecast data.".freeze
+    INVALID_RESPONSE_MESSAGE = "Weather provider returned an invalid response.".freeze
+    UNKNOWN_CONDITION = "Unknown".freeze
 
     WEATHER_CODES = {
       0 => "Clear sky",
@@ -81,23 +108,23 @@ module Weather
     attr_reader :latitude, :longitude
 
     def perform_request
-      uri = URI("#{BASE_URL}/v1/forecast")
+      uri = URI("#{BASE_URL}#{FORECAST_PATH}")
       uri.query = URI.encode_www_form(
         latitude:,
         longitude:,
-        current: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m",
-        daily: "weather_code,temperature_2m_max,temperature_2m_min",
-        forecast_days: 5,
-        timezone: "auto"
+        current: CURRENT_FIELDS,
+        daily: DAILY_FIELDS,
+        forecast_days: FORECAST_DAYS,
+        timezone: TIMEZONE
       )
 
       request = Net::HTTP::Get.new(uri)
       request["Accept"] = "application/json"
 
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == "https"
-      http.open_timeout = 5
-      http.read_timeout = 5
+      http.use_ssl = uri.scheme == HTTPS_SCHEME
+      http.open_timeout = REQUEST_TIMEOUT_SECONDS
+      http.read_timeout = REQUEST_TIMEOUT_SECONDS
 
       response = http.request(request)
       return response if response.is_a?(Net::HTTPSuccess)
@@ -109,43 +136,43 @@ module Weather
 
     def parse_response(response)
       payload = JSON.parse(response.body)
-      current = payload["current"]
-      units = payload["current_units"]
-      daily = payload["daily"]
+      current = payload[CURRENT_KEY]
+      units = payload[CURRENT_UNITS_KEY]
+      daily = payload[DAILY_KEY]
 
-      raise MissingDataError, "Weather provider did not return current conditions." if current.blank? || units.blank?
-      raise MissingDataError, "Weather provider did not return daily forecast data." if daily.blank?
+      raise MissingDataError, CURRENT_DATA_MISSING_MESSAGE if current.blank? || units.blank?
+      raise MissingDataError, DAILY_DATA_MISSING_MESSAGE if daily.blank?
 
       daily_periods = build_daily_periods(daily)
 
       Result.new(
-        temperature: current.fetch("temperature_2m"),
-        temperature_unit: units.fetch("temperature_2m"),
-        apparent_temperature: current.fetch("apparent_temperature"),
-        wind_speed: current.fetch("wind_speed_10m"),
-        wind_speed_unit: units.fetch("wind_speed_10m"),
-        condition_label: WEATHER_CODES.fetch(current.fetch("weather_code"), "Unknown"),
-        fetched_at: current.fetch("time"),
+        temperature: current.fetch(TEMPERATURE_KEY),
+        temperature_unit: units.fetch(TEMPERATURE_KEY),
+        apparent_temperature: current.fetch(APPARENT_TEMPERATURE_KEY),
+        wind_speed: current.fetch(WIND_SPEED_KEY),
+        wind_speed_unit: units.fetch(WIND_SPEED_KEY),
+        condition_label: WEATHER_CODES.fetch(current.fetch(WEATHER_CODE_KEY), UNKNOWN_CONDITION),
+        fetched_at: current.fetch(TIME_KEY),
         daily_high: daily_periods.first&.high,
         daily_low: daily_periods.first&.low,
         daily_periods:
       )
     rescue JSON::ParserError
-      raise RequestError, "Weather provider returned an invalid response."
+      raise RequestError, INVALID_RESPONSE_MESSAGE
     end
 
     def build_daily_periods(daily)
-      dates = daily.fetch("time")
-      highs = daily.fetch("temperature_2m_max")
-      lows = daily.fetch("temperature_2m_min")
-      codes = daily.fetch("weather_code")
+      dates = daily.fetch(TIME_KEY)
+      highs = daily.fetch(TEMPERATURE_MAX_KEY)
+      lows = daily.fetch(TEMPERATURE_MIN_KEY)
+      codes = daily.fetch(WEATHER_CODE_KEY)
 
       dates.each_index.map do |index|
         DailyForecast.new(
           date: dates[index],
           high: highs[index],
           low: lows[index],
-          condition_label: WEATHER_CODES.fetch(codes[index], "Unknown")
+          condition_label: WEATHER_CODES.fetch(codes[index], UNKNOWN_CONDITION)
         )
       end
     end

@@ -3,6 +3,9 @@ class ForecastLookup
 
   class Error < StandardError; end
 
+  CACHE_KEY_PREFIX = "forecast:zip".freeze
+  CACHE_EXPIRATION = 30.minutes
+
   def self.call(address:)
     new(address:).call
   end
@@ -25,7 +28,7 @@ class ForecastLookup
   attr_reader :address
 
   def fetch_forecast_for(location)
-    cache_key = "forecast:zip:#{location.zip_code}"
+    cache_key = "#{CACHE_KEY_PREFIX}:#{location.zip_code}"
     cached_forecast = Rails.cache.read(cache_key)
     return [ cached_forecast, true ] if cached_forecast.present?
 
@@ -34,7 +37,7 @@ class ForecastLookup
       longitude: location.longitude
     )
 
-    Rails.cache.write(cache_key, forecast, expires_in: 30.minutes)
+    Rails.cache.write(cache_key, forecast, expires_in: CACHE_EXPIRATION)
     [ forecast, false ]
   end
 end

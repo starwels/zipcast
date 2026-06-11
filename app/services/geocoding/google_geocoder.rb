@@ -19,6 +19,23 @@ module Geocoding
     class RequestError < Error; end
 
     ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json".freeze
+    POSTAL_CODE_TYPE = "postal_code".freeze
+    REQUEST_TIMEOUT_SECONDS = 5
+
+    ADDRESS_COMPONENTS_KEY = "address_components".freeze
+    FORMATTED_ADDRESS_KEY = "formatted_address".freeze
+    GEOMETRY_KEY = "geometry".freeze
+    LATITUDE_KEY = "lat".freeze
+    LOCATION_KEY = "location".freeze
+    LONG_NAME_KEY = "long_name".freeze
+    LONGITUDE_KEY = "lng".freeze
+    RESULTS_KEY = "results".freeze
+    TYPES_KEY = "types".freeze
+
+    INVALID_RESPONSE_MESSAGE = "Google Geocoding returned an invalid response.".freeze
+    MISSING_API_KEY_MESSAGE = "Missing google geocoding API key in Rails credentials.".freeze
+    MISSING_ZIP_CODE_MESSAGE = "That address did not resolve to a ZIP code.".freeze
+    NO_RESULTS_MESSAGE = "No location found for that address.".freeze
 
     def self.call(address:)
       new(address:).call
@@ -30,7 +47,7 @@ module Geocoding
     end
 
     def call
-      raise MissingApiKeyError, "Missing google geocoding API key in Rails credentials." if api_key.empty?
+      raise MissingApiKeyError, MISSING_API_KEY_MESSAGE if api_key.empty?
 
       response = perform_request
       parse_response(response)
@@ -53,8 +70,8 @@ module Geocoding
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      http.open_timeout = 5
-      http.read_timeout = 5
+      http.open_timeout = REQUEST_TIMEOUT_SECONDS
+      http.read_timeout = REQUEST_TIMEOUT_SECONDS
 
       response = http.request(request)
       return response if response.is_a?(Net::HTTPSuccess)
@@ -66,32 +83,32 @@ module Geocoding
 
     def parse_response(response)
       payload = JSON.parse(response.body)
-      result = payload.fetch("results", []).first
+      result = payload.fetch(RESULTS_KEY, []).first
 
-      raise NoResultsError, "No location found for that address." if result.blank?
+      raise NoResultsError, NO_RESULTS_MESSAGE if result.blank?
 
-      zip_code = extract_zip_code(result.fetch("address_components", []))
-      raise MissingZipCodeError, "That address did not resolve to a ZIP code." if zip_code.blank?
+      zip_code = extract_zip_code(result.fetch(ADDRESS_COMPONENTS_KEY, []))
+      raise MissingZipCodeError, MISSING_ZIP_CODE_MESSAGE if zip_code.blank?
 
-      location = result.fetch("geometry").fetch("location")
+      location = result.fetch(GEOMETRY_KEY).fetch(LOCATION_KEY)
 
       Result.new(
         address:,
-        formatted_address: result.fetch("formatted_address"),
+        formatted_address: result.fetch(FORMATTED_ADDRESS_KEY),
         zip_code:,
-        latitude: location.fetch("lat"),
-        longitude: location.fetch("lng")
+        latitude: location.fetch(LATITUDE_KEY),
+        longitude: location.fetch(LONGITUDE_KEY)
       )
     rescue JSON::ParserError
-      raise RequestError, "Google Geocoding returned an invalid response."
+      raise RequestError, INVALID_RESPONSE_MESSAGE
     end
 
     def extract_zip_code(components)
       component = components.find do |entry|
-        entry.fetch("types", []).include?("postal_code")
+        entry.fetch(TYPES_KEY, []).include?(POSTAL_CODE_TYPE)
       end
 
-      component&.fetch("long_name", nil)
+      component&.fetch(LONG_NAME_KEY, nil)
     end
   end
 end
