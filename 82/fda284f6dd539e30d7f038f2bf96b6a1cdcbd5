@@ -1,0 +1,29 @@
+test/system/forecast_lookup_test.rb
+  s_ac3735265f3c57::t_0a3bc69f659fb7 21
+  s_ac3735265f3c57::t_f502b9a824ee8b 1-20,22-59
+test/application_system_test_case.rb
+  s_ac3735265f3c57::t_f502b9a824ee8b 1-5
+.github/workflows/ci.yml
+  s_ac3735265f3c57::t_0d935108da9809 106-152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "82fda284f6dd539e30d7f038f2bf96b6a1cdcbd5",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
