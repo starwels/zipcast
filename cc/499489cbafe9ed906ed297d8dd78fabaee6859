@@ -1,0 +1,26 @@
+app/services/forecast_lookup.rb
+  s_ac3735265f3c57::t_70ea112b8962b6 9-10,13,15-17,21,31,35,38,43
+test/services/forecast_lookup_test.rb
+  s_ac3735265f3c57::t_85eb7d13be0c8d 4-16,44-45,47-58,60-62,66,68,70-71,73-74,86-89,91-92,94-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "cc499489cbafe9ed906ed297d8dd78fabaee6859",
+  "prompts": {},
+  "humans": {
+    "h_b4af60cede5fe2": {
+      "author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ac3735265f3c57": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb476-e161-79d3-bcef-59b8c4330dc1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Wellington Santos <wlss.lucas@gmail.com>"
+    }
+  }
+}
